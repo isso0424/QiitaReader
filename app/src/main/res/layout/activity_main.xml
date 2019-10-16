@@ -12,7 +12,7 @@
         android:layout_height="53dp"
         android:text="@string/monthly"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"></Button>
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/weekly"
@@ -21,7 +21,7 @@
         android:text="@string/weekly"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"></Button>
+        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/daily"
@@ -29,7 +29,7 @@
         android:layout_height="53dp"
         android:text="@string/daily"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"></Button>
+        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -41,7 +41,7 @@
             android:id="@+id/status"
             android:layout_width="59dp"
             android:layout_height="15dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
 
         <ListView
             android:id="@+id/listView"
