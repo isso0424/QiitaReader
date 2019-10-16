@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/monthly"
+        android:layout_width="107dp"
+        android:layout_height="53dp"
+        android:text="@string/monthly"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"></Button>
+
+    <Button
+        android:id="@+id/weekly"
+        android:layout_width="107dp"
+        android:layout_height="53dp"
+        android:text="@string/weekly"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"></Button>
+
+    <Button
+        android:id="@+id/daily"
+        android:layout_width="107dp"
+        android:layout_height="53dp"
+        android:text="@string/daily"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"></Button>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="59dp"
+            android:layout_height="15dp"
+            android:layout_gravity="center"/>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
