@@ -3,4 +3,5 @@
     <string name="daily">daily</string>
     <string name="weekly">weekly</string>
     <string name="monthly">monthly</string>
+    <string name="loading">Loading</string>
 </resources>
