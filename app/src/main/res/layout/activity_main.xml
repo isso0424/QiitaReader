@@ -6,31 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/monthly"
-        android:layout_width="107dp"
-        android:layout_height="53dp"
-        android:text="@string/monthly"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout" />
-
-    <Button
-        android:id="@+id/weekly"
-        android:layout_width="107dp"
-        android:layout_height="53dp"
-        android:text="@string/weekly"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
-
-    <Button
-        android:id="@+id/daily"
-        android:layout_width="107dp"
-        android:layout_height="53dp"
-        android:text="@string/daily"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"

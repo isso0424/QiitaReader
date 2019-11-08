@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity(),Runnable{
     private lateinit var daily: Button
     private lateinit var weekly:Button
     private lateinit var monthly:Button
-    private val res = resources
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,29 +23,8 @@ class MainActivity : AppCompatActivity(),Runnable{
         status = findViewById(R.id.status)
         task = GetData(listView, this, status)
         GetData.scope = "daily"
-        status.text = res.getString(R.string.loading)
+        status.text = "loading"
         task.execute(1)
-        daily = findViewById(R.id.daily)
-        weekly = findViewById(R.id.weekly)
-        monthly = findViewById(R.id.monthly)
-        daily.setOnClickListener{
-            GetData.scope = "daily"
-            task = GetData(listView, this, status)
-            status.text = res.getString(R.string.loading)
-            task.execute(1)
-        }
-        weekly.setOnClickListener {
-            GetData.scope = "weekly"
-            task = GetData(listView, this, status)
-            status.text = res.getString(R.string.loading)
-            task.execute(1)
-        }
-        monthly.setOnClickListener {
-            GetData.scope = "monthly"
-            task = GetData(listView, this, status)
-            status.text = res.getString(R.string.loading)
-            task.execute(1)
-        }
         listView.setOnItemClickListener { _, _, i, _ ->
             onItemClick(i, links)
         }

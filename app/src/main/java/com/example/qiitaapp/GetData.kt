@@ -34,7 +34,7 @@ class GetData<T> constructor(
         detailLists.clear()
         detailLists.add(mapOf("title" to "タイトル", "author" to "筆者", "url" to ""))
             val baseUrl = "https://qiita.com"
-            val document = Jsoup.connect("https://qiita.com/?scope").data("scope", scope).get()
+            val document = Jsoup.connect("https://qiita.com/?scope=weekly").get()
             println(document)
         println("https://qiita.com/?scope=$scope")
             val elements = document.select("body > div.allWrapper")
