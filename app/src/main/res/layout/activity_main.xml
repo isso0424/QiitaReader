@@ -12,12 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="59dp"
-            android:layout_height="15dp"
-            android:layout_gravity="center" />
-
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"

@@ -9,21 +9,14 @@ import android.widget.*
 
 class MainActivity : AppCompatActivity(),Runnable{
     private lateinit var listView:ListView
-    private lateinit var status:TextView
     private lateinit var task:GetData<AppCompatActivity>
     private var handler = Handler()
     private var links:Array<String?> = arrayOfNulls(30)
-    private lateinit var daily: Button
-    private lateinit var weekly:Button
-    private lateinit var monthly:Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         listView = findViewById(R.id.listView)
-        status = findViewById(R.id.status)
-        task = GetData(listView, this, status)
-        GetData.scope = "daily"
-        status.text = "loading"
+        task = GetData(listView, this)
         task.execute(1)
         listView.setOnItemClickListener { _, _, i, _ ->
             onItemClick(i, links)
@@ -37,7 +30,9 @@ class MainActivity : AppCompatActivity(),Runnable{
         if (links[i].isNullOrBlank()) return
         val selectedLink = links[i]
         val uri = Uri.parse(selectedLink)
-        val intent = Intent(Intent.ACTION_VIEW, uri)
+        val intent = Intent(applicationContext, Reader::class.java)
+        println(uri.toString())
+        intent.putExtra("URI", uri.toString())
         startActivity(intent)
     }
     override fun run(){

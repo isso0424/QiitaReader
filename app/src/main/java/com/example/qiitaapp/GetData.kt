@@ -20,12 +20,7 @@ data class Node(val createdAt:String, val likesCount:Int, val title:String, val 
 data class Author(val profileImageUrl:String, val urlName: String)
 
 class GetData<T> constructor(
-    @field:SuppressLint("StaticFieldLeak") private val listView: ListView, activity: T,
-    @field:SuppressLint("StaticFieldLeak") private val status: TextView
-): AsyncTask<Int, Int, MutableList<Map<String, String>>>() where T : AppCompatActivity{
-    companion object{
-        var scope: String = "daily"
-    }
+    @field:SuppressLint("StaticFieldLeak") private val listView: ListView, activity: T): AsyncTask<Int, Int, MutableList<Map<String, String>>>() where T : AppCompatActivity{
     @SuppressLint("StaticFieldLeak")
     private val activity:Activity = activity
     private var detailLists = mutableListOf<Map<String, String>>()
@@ -36,7 +31,6 @@ class GetData<T> constructor(
             val baseUrl = "https://qiita.com"
             val document = Jsoup.connect("https://qiita.com/?scope=weekly").get()
             println(document)
-        println("https://qiita.com/?scope=$scope")
             val elements = document.select("body > div.allWrapper")
             val element = elements[0].getElementsByTag("div")
             val e = element[37].attr("data-hyperapp-props")
@@ -70,6 +64,5 @@ class GetData<T> constructor(
         val adapter = SimpleAdapter(this.activity, result, R.layout.listcontent,
             arrayOf("title", "author"), intArrayOf(R.id.titles, R.id.author))
         this.listView.adapter = adapter
-        status.text = "scope:$scope"
     }
 }
