@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.view.KeyEvent
 import android.widget.*
 
 class MainActivity : AppCompatActivity(),Runnable{
@@ -12,16 +13,24 @@ class MainActivity : AppCompatActivity(),Runnable{
     private lateinit var task:GetData<AppCompatActivity>
     private var handler = Handler()
     private var links:Array<String?> = arrayOfNulls(30)
+    private lateinit var searchBox: EditText
+    private lateinit var searchButton: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         listView = findViewById(R.id.listView)
+        searchBox = findViewById(R.id.search_box)
+        searchButton = findViewById(R.id.search_button)
         task = GetData(listView, this)
         task.execute(1)
         listView.setOnItemClickListener { _, _, i, _ ->
             onItemClick(i, links)
         }
+        searchButton.setOnClickListener {
+
+        }
         handler.post(this)
+        // TODO: Make search function and reload function
     }
     private fun onItemClick(
         i: Int,
@@ -42,5 +51,14 @@ class MainActivity : AppCompatActivity(),Runnable{
             onItemClick(i, links)
         }
         handler.postDelayed(this, 2000)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode==KeyEvent.KEYCODE_BACK){
+            task = GetData(listView, this)
+            task.execute(1)
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }
