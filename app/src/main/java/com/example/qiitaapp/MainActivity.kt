@@ -11,18 +11,18 @@ import android.widget.*
 class MainActivity : AppCompatActivity(),Runnable{
     private lateinit var listView:ListView
     private lateinit var task:GetData<AppCompatActivity>
-    private lateinit var search: DoSearch<AppCompatActivity>
     private var handler = Handler()
     private var links:Array<String?> = arrayOfNulls(30)
     private lateinit var searchBox: EditText
     private lateinit var searchButton: Button
+    private var searching = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         listView = findViewById(R.id.listView)
         searchBox = findViewById(R.id.search_box)
         searchButton = findViewById(R.id.search_button)
-        task = GetData(listView, this)
+        task = GetData(listView, this, null ,null)
         task.execute(1)
         listView.setOnItemClickListener { _, _, i, _ ->
             onItemClick(i, links)
@@ -31,8 +31,8 @@ class MainActivity : AppCompatActivity(),Runnable{
             //TODO : Test this function
             val keyWord:String? = searchBox.text.toString()
             if (!keyWord.isNullOrBlank()){
-                search = DoSearch(listView, this, keyWord)
-                search.execute(1)
+                task = GetData(listView, this, true, keyWord)
+                task.execute(1)
             }
         }
         handler.post(this)
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(),Runnable{
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode==KeyEvent.KEYCODE_BACK){
-            task = GetData(listView, this)
+            task = GetData(listView, this, null, null)
             task.execute(1)
             return true
         }

@@ -20,15 +20,38 @@ data class Node(val createdAt:String, val likesCount:Int, val title:String, val 
 data class Author(val profileImageUrl:String, val urlName: String)
 
 class GetData<T> constructor(
-    @field:SuppressLint("StaticFieldLeak") private val listView: ListView, activity: T): AsyncTask<Int, Int, MutableList<Map<String, String>>>() where T : AppCompatActivity{
+    @field:SuppressLint("StaticFieldLeak") private val listView: ListView, activity: T, search:Boolean?, private val searchBox:String?): AsyncTask<Int, Int, MutableList<Map<String, String>>>() where T : AppCompatActivity{
     @SuppressLint("StaticFieldLeak")
     private val activity:Activity = activity
+    private val search:Boolean? = search
     private var detailLists = mutableListOf<Map<String, String>>()
     var linkArray: Array<String?> = arrayOfNulls(31)
     override fun doInBackground(vararg p0: Int?): MutableList<Map<String, String>> {
         detailLists.clear()
-        detailLists.add(mapOf("title" to "タイトル", "author" to "筆者", "url" to ""))
             val baseUrl = "https://qiita.com"
+        if (search == true){
+            val document = Jsoup.connect("https://qiita.com/search").data("q", searchBox).get()
+            println(document)
+            val error = document.select("#main > div > div > div.searchResultContainer_main > div.searchResultContainer_empty > div.searchResultContainer_emptyDescription")
+            if (!error.isNullOrEmpty()) {
+                detailLists.add(mapOf("title" to "記事が見つかりませんでした", "author" to "", "url" to ""))
+                return detailLists
+            }
+            detailLists.add(mapOf("title" to "タイトル", "author" to "筆者", "url" to "", "detail" to "詳細", "good" to "いいねの数"))
+            val elements = document.select("#main > div > div > div.searchResultContainer_main > div")
+            for (i in 1..2)elements.remove(elements[0])
+            for (d in elements){
+                val title = d.select("div > div.searchResult_main > h1").text()
+                if (title.isNullOrBlank()) break
+                val detail = d.select("div > div.searchResult_snippet").text()
+                val user = d.select("div > div.searchResult_main > div.searchResult_header > a").text()
+                val good = d.select("div > div.searchResult_sub > ul > li")[0].text()
+                val url = baseUrl + d.select("div > div.searchResult_main > h1 > a").attr("href")
+                detailLists.add(mapOf("title" to title, "detail" to detail, "author" to user, "url" to url, "good" to good))
+            }
+        }
+            else{
+            detailLists.add(mapOf("title" to "タイトル", "author" to "筆者", "url" to ""))
             val document = Jsoup.connect("https://qiita.com/?scope=weekly").get()
             println(document)
             val elements = document.select("body > div.allWrapper")
@@ -48,6 +71,7 @@ class GetData<T> constructor(
                 println(ed.node.title)
                 detailLists.add(map)
             }
+        }
         return detailLists
     }
 
