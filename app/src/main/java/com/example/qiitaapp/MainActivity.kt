@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity(),Runnable{
             onItemClick(i, links)
         }
         searchButton.setOnClickListener {
-            //TODO : Test this function
             val keyWord:String? = searchBox.text.toString()
             if (!keyWord.isNullOrBlank()){
                 task = GetData(listView, this, true, keyWord)
