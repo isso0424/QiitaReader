@@ -5,7 +5,6 @@ import android.app.Activity
 import android.os.AsyncTask
 import android.widget.ListView
 import android.widget.SimpleAdapter
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import org.jsoup.Jsoup
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
@@ -20,18 +19,17 @@ data class Node(val createdAt:String, val likesCount:Int, val title:String, val 
 data class Author(val profileImageUrl:String, val urlName: String)
 
 class GetData<T> constructor(
-    @field:SuppressLint("StaticFieldLeak") private val listView: ListView, activity: T, search:Boolean?, private val searchBox:String?): AsyncTask<Int, Int, MutableList<Map<String, String>>>() where T : AppCompatActivity{
+    @field:SuppressLint("StaticFieldLeak") private val listView: ListView, activity: T,
+    private val search: Boolean?, private val searchBox:String?, private val pageNum:String?): AsyncTask<Int, Int, MutableList<Map<String, String>>>() where T : AppCompatActivity{
     @SuppressLint("StaticFieldLeak")
     private val activity:Activity = activity
-    private val search:Boolean? = search
     private var detailLists = mutableListOf<Map<String, String>>()
     var linkArray: Array<String?> = arrayOfNulls(31)
     override fun doInBackground(vararg p0: Int?): MutableList<Map<String, String>> {
         detailLists.clear()
             val baseUrl = "https://qiita.com"
         if (search == true){
-            val document = Jsoup.connect("https://qiita.com/search").data("q", searchBox).get()
-            println(document)
+            val document = Jsoup.connect("https://qiita.com/search").data("q", searchBox, "page", pageNum).get()
             val error = document.select("#main > div > div > div.searchResultContainer_main > div.searchResultContainer_empty > div.searchResultContainer_emptyDescription")
             if (!error.isNullOrEmpty()) {
                 detailLists.add(mapOf("title" to "記事が見つかりませんでした", "author" to "", "url" to ""))

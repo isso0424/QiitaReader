@@ -5,12 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
+<LinearLayout
+    android:id="@+id/head"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    android:orientation="vertical">
     <LinearLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_alignParentTop="true"
             android:layout_marginTop="0dp"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
@@ -35,19 +39,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/button"
-
             />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:id="@+id/prev"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/prev"
+            android:layout_gravity="start"
+            />
 
+        <TextView
+            android:id="@+id/now_detail"
+            android:layout_width="199dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:text="null" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="@string/next" />
+    </LinearLayout>
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
         app:layout_constraintVertical_bias="0.269"
         tools:layout_editor_absoluteX="-16dp" />
+</LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

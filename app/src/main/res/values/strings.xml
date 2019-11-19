@@ -6,4 +6,6 @@
     <string name="loading">Loading</string>
     <string name="box">記事検索</string>
     <string name="button">検索</string>
+    <string name="prev">前のページ</string>
+    <string name="next">次のページ</string>
 </resources>
