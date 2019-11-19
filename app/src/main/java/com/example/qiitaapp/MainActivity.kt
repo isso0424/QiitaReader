@@ -11,6 +11,7 @@ import android.widget.*
 class MainActivity : AppCompatActivity(),Runnable{
     private lateinit var listView:ListView
     private lateinit var task:GetData<AppCompatActivity>
+    private lateinit var search: DoSearch<AppCompatActivity>
     private var handler = Handler()
     private var links:Array<String?> = arrayOfNulls(30)
     private lateinit var searchBox: EditText
@@ -27,10 +28,15 @@ class MainActivity : AppCompatActivity(),Runnable{
             onItemClick(i, links)
         }
         searchButton.setOnClickListener {
-
+            //TODO : Test this function
+            val keyWord:String? = searchBox.text.toString()
+            if (!keyWord.isNullOrBlank()){
+                search = DoSearch(listView, this, keyWord)
+                search.execute(1)
+            }
         }
         handler.post(this)
-        // TODO: Make search function and reload function
+
     }
     private fun onItemClick(
         i: Int,

@@ -21,7 +21,7 @@ class DoSearch<T> constructor(
         val document = Jsoup.connect("https://qiita.com/search").data("q", searchBox).get()
         println(document)
         val error = document.select("#main > div > div > div.searchResultContainer_main > div.searchResultContainer_empty > div.searchResultContainer_emptyDescription")
-        if (error.isNullOrEmpty()) {
+        if (!error.isNullOrEmpty()) {
             detailLists.add(mapOf("title" to "記事が見つかりませんでした", "author" to "", "url" to ""))
             return detailLists
         }
